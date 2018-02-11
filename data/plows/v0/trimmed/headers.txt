@@ -1,0 +1,10 @@
+﻿truck_name,repair_type,date_fixed,date_fixed1,address,activity_type,longitude,latitude,OBJECTID in plow20170313.csv
+"truck_name","repair_type","date_fixed","strHeading","address","activity_type","longitude","latitude" in plow20180101.csv
+"truck_name","repair_type","date_fixed","strHeading","address","activity_type","longitude","latitude" in plow20180102.csv,,truck_name,repair_type,date_fixed,strHeading,address,activity_type,longitude,latitude,OBJECTID in plow20180103.csv
+"truck_name","repair_type","date_fixed","strHeading","address","activity_type","longitude","latitude" in plow20180104.csv
+"truck_name","repair_type","date_fixed","strHeading","address","activity_type","longitude","latitude" in plow20180106.csv
+truck_name","repair_type","date_fixed","strHeading","address","activity_type","longitude","latitude" in plow20180107.csv
+"truck_name","repair_type","date_fixed","strHeading","address","activity_type","longitude","latitude" in plow20180108.csv
+"truck_name","repair_type","date_fixed","strHeading","address","activity_type","longitude","latitude" in plow20180109.csv
+truck_name,repair_type,date_fixed,date_fixed1,address,activity_type,longitude,latitude in plow20180314.csv
+truck_name,repair_type,date_fixed,date_fixed1,address,activity_type,longitude,latitude in plow20180315.csv
