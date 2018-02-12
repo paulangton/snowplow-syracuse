@@ -1,69 +1,79 @@
-var canvas = document.querySelector("#scene");
-canvas.width  = window.innerWidth;
-canvas.height = window.innerHeight;
-var HEIGHT = document.querySelector("#scene").height;
-var WIDTH = document.querySelector("#scene").width;
-var ctx = canvas.getContext("2d");
-var tickrate = 1000 / 60 / 60 / 24;
+var c1 = document.querySelector("#layer1");
+c1.width  = window.innerWidth;
+c1.height = window.innerHeight;
+var ctx1 = c1.getContext("2d");
+ctx1.width = c1.width
+ctx1.height = c1.height
+
+var c2 = document.querySelector("#layer2");
+c2.width  = window.innerWidth;
+c2.height = window.innerHeight;
+var ctx2 = c2.getContext("2d");
+ctx2.width = c2.width
+ctx2.height = c2.height
 
 window.addEventListener("resize", function() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-    HEIGHT = document.querySelector("#scene").height;
-    WIDTH = document.querySelector("#scene").width;
+    c1.width  = window.innerWidth;
+    c1.height = window.innerHeight;
+    c2.width  = window.innerWidth;
+    c2.height = window.innerHeight;
+    ctx1.width = c1.width
+    ctx1.height = c1.height
+    ctx2.width = c2.width
+    ctx2.height = c2.height
 });
+
+ctx2.strokeStyle = 'rgba(0,0,0,0.4)'
+ctx2.lineWidth = 2
+ctx2.lineJoin = 'bevel'
 
 class Truck {
     constructor(route) {
         this.route = route
         
-        this.tracks = []
+        this.last = undefined
+    }
+    
+    drawGlobe(tick) {
+        ctx1.beginPath();
+        ctx1.arc(this.route[tick][0] * ctx1.width,
+                 this.route[tick][1] * ctx1.height,
+                 5, 0, 2 * Math.PI);
+        ctx1.fill();
+    }
+    
+    drawTrace(tick) {
+        if (this.last) {
+            ctx2.beginPath();
+            ctx2.moveTo(this.route[tick][0] * ctx2.width,
+                        this.route[tick][1] * ctx2.height);
+            ctx2.lineTo(this.last[0] * ctx2.width,
+                        this.last[1] * ctx2.height);
+            ctx2.stroke();
+        }
     }
     
     drawAt(tick) {
-        var i = tick
-        var limit = 600
-        
-        this.tracks = this.tracks.filter(function(track) {
-            return tick - track < limit;
-        });
-        
         if (this.route[tick]) {
-            this.tracks.push(tick);
-        }
-        
-        if (this.tracks.length > 1) {
-            ctx.beginPath();
-            ctx.moveTo(this.route[this.tracks[0]][0] * WIDTH,
-                       this.route[this.tracks[0]][1] * HEIGHT);
-            var self = this
-            this.tracks.slice(1, this.tracks.length).forEach(function(track) {
-                ctx.lineTo(self.route[track][0] * WIDTH,
-                           self.route[track][1] * HEIGHT);
-                ctx.stroke();
-            });
+            this.drawGlobe(tick)
+            this.drawTrace(tick)
+            this.last = this.route[tick]
         }
     }
 }
 
-var trucks = []
+var tickrate = 1;
+var tick = 0
 
+var trucks = []
 a.forEach(function(route) {
     trucks.push(new Truck(route))
 });
 
-ctx.lineWidth = 2
-ctx.lineJoin = 'bevel'
-var grd=ctx.createLinearGradient(0,0,200,0);
-grd.addColorStop(0,"red");
-grd.addColorStop(1,"white");
-//ctx.strokeStyle=grd;
-
-var tick = 0
-setInterval(run, tickrate);
+setInterval(run, 0);
 
 function run() {
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    ctx1.clearRect(0, 0, ctx1.width, ctx1.height);
     
     trucks.forEach(function(truck) {
         truck.drawAt(tick);

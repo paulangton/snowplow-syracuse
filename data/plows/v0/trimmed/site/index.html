@@ -15,7 +15,10 @@
         <script src="plow20180101.csv.js"></script>
     </head>
     <body>
-        <canvas id="scene" height="500" width="750"></canvas>
+        <div style="position: relative;">
+            <canvas id="layer1" width="100" height="100" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+            <canvas id="layer2" width="100" height="100" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+        </div>
         <script src="canvas.js"></script>
     </body>
 </html>
